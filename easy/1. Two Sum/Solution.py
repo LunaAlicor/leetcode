@@ -5,11 +5,13 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        if len(nums) == 2:
-            return [0, 1]
-        for i in range(len(nums)):
-            print(nums[i])
-            if target - nums[i] in nums[i+1:]:
-                result = i
+        nums_dict = dict()
+        
+        for index, value in enumerate(nums):
+            sec_num = target - value
+            if nums_dict.get(sec_num) is not None:
+                result.extend([nums_dict[sec_num], index])
+                break
+            nums_dict[value] = index
 
-                return [result, nums.index((target - nums[result]), i+1)]
+        return [result, nums.index((target - nums[result]), i+1)]
